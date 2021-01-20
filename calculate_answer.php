@@ -20,5 +20,7 @@
                 break;
         }
     ?>
+    <br>
+    <a href="calculate.php">ย้อนกลับ</a>
 </body>
 </html>
