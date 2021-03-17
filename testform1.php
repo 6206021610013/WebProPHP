@@ -7,7 +7,23 @@
     <title>Document</title>
 </head>
 <body>
-    <form method="POST" action="success.php">
+    <?php
+     $servername = "localhost";
+     $username = "root";
+     $password = "";
+     $conn = mysqli_connect($servername, $username, $password);
+     $show = "SHOW DATABASES";
+     if(!($result=mysqli_query($conn, $show))){
+         printf("Error : %s\n", mysqli_error($conn));
+     }
+     while($row = mysqli_fetch_row($result)){
+         if (($row[0]!="information_schema") && ($row[0]!="mysql")){
+             echo $row[0]. "\r<br>";
+         }
+     }
+    ?>
+    <br/>
+    <form method="POST">
     DB NAME :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="dbname" require><br/>
     TABLE NAME :<input type="text" name="tbname" require><br/>
     NAME :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="name" require><br/>
@@ -16,22 +32,12 @@
     <input type="submit" name="submit" value="ตกลง">
     <form><br/>
     <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $conn = mysqli_connect($servername, $username, $password);
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-        echo "Connected successfully";
-        
         if (isset($_POST["submit"])){
             $dbname = $_POST["dbname"];
             $tbname = $_POST["tbname"];
             $name = $_POST["name"];
             $lname = $_POST["lastname"];
             $email = $_POST["email"];
-
         }
     ?>
 </body>
