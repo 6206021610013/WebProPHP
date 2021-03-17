@@ -5,6 +5,6 @@
     Num X: <input type="text" name="x"><br>
     Num Y: <input type="text" name="y"><br>
     Operator : <input type="text" name="operator"><br>
-    <input type="submit">
+    <input type="submit" value="calculate now">
 </body>
 </html>
