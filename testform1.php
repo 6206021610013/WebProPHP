@@ -7,38 +7,44 @@
     <title>Document</title>
 </head>
 <body>
-    <?php
-     $servername = "localhost";
-     $username = "root";
-     $password = "";
-     $conn = mysqli_connect($servername, $username, $password);
-     $show = "SHOW DATABASES";
-     if(!($result=mysqli_query($conn, $show))){
-         printf("Error : %s\n", mysqli_error($conn));
-     }
-     while($row = mysqli_fetch_row($result)){
-         if (($row[0]!="information_schema") && ($row[0]!="mysql")){
-             echo $row[0]. "\r<br>";
-         }
-     }
-    ?>
+     
     <br/>
     <form method="POST">
     DB NAME :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="dbname" require><br/>
-    TABLE NAME :<input type="text" name="tbname" require><br/>
-    NAME :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="name" require><br/>
-    LAST-NAME :&nbsp;&nbsp;&nbsp;<input type="text" name="lastname" require><br/>
-    E-MAIL :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="email" require><br/>
+    TABLE NAME :<input type="text" name="tbname" ><br/>
+    NAME :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="name" ><br/>
+    LAST-NAME :&nbsp;&nbsp;&nbsp;<input type="text" name="lastname" ><br/>
+    E-MAIL :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="email" ><br/>
     <input type="submit" name="submit" value="ตกลง">
     <form><br/>
     <?php
-        if (isset($_POST["submit"])){
-            $dbname = $_POST["dbname"];
-            $tbname = $_POST["tbname"];
-            $name = $_POST["name"];
-            $lname = $_POST["lastname"];
-            $email = $_POST["email"];
+    
+    if (isset($_POST["submit"])){
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = $_POST["dbname"];
+        $conn = mysqli_connect($servername, $username, $password, $dbname);
+        if($conn === false){
+            die("ERROR: Could not connect. " . mysqli_connect_error());
         }
+
+        $tbname = $_POST["tbname"];
+        $name = $_POST["name"];
+        $lname = $_POST["lastname"];
+        $email = $_POST["email"];
+
+        $sql = "INSERT INTO $tbname (id, fname, lastname, email)
+        VALUES ('', '$name', '$lname', '$email')";
+
+        if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+        } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+
+        $conn->close();
+    }
     ?>
 </body>
 </html>
