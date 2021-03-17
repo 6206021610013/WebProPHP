@@ -28,12 +28,10 @@
         if($conn === false){
             die("ERROR: Could not connect. " . mysqli_connect_error());
         }
-
         $tbname = $_POST["tbname"];
         $name = $_POST["name"];
         $lname = $_POST["lastname"];
         $email = $_POST["email"];
-
         $sql = "INSERT INTO $tbname (id, fname, lastname, email)
         VALUES ('', '$name', '$lname', '$email')";
 
