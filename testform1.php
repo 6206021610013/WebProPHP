@@ -11,10 +11,10 @@
     <br/>
     <form method="POST">
     DB NAME :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="dbname" require><br/>
-    TABLE NAME :<input type="text" name="tbname" ><br/>
-    NAME :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="name" ><br/>
-    LAST-NAME :&nbsp;&nbsp;&nbsp;<input type="text" name="lastname" ><br/>
-    E-MAIL :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="email" ><br/>
+    TABLE NAME :<input type="text" name="tbname" require><br/>
+    NAME :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="name" require><br/>
+    LAST-NAME :&nbsp;&nbsp;&nbsp;<input type="text" name="lastname" require><br/>
+    E-MAIL :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="email" require><br/>
     <input type="submit" name="submit" value="ตกลง">
     <form><br/>
     <?php
@@ -32,8 +32,7 @@
         $name = $_POST["name"];
         $lname = $_POST["lastname"];
         $email = $_POST["email"];
-        $sql = "INSERT INTO $tbname (id, fname, lastname, email)
-        VALUES ('', '$name', '$lname', '$email')";
+        $sql = "INSERT INTO $tbname VALUES ('', '$name', '$lname', '$email')";
 
         if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";
